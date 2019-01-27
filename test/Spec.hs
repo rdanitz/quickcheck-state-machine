@@ -80,21 +80,21 @@ tests docker0 = testGroup "Tests"
       , testProperty "parallel bad, see issue #218"
           (expectFailure (ioProperty (prop_echoParallelOK True <$> mkEnv)))
       ]
-  , testGroup "ProcessRegistry"
-      [ QCSM.testProperty "sequential" prop_processRegistry markovGood
-      , testCase "markovDeadlock"
-          (assertException (\(ErrorCall err) -> "\nA deadlock" `isPrefixOf` err)
-            (sample (generateCommands (sm markovDeadlock) Nothing)))
-      , testCase "markovNotStochastic1"
-          (assertException (\(ErrorCall err) -> "The probabilities" `isPrefixOf` err)
-            (sample (generateCommands (sm markovNotStochastic1) Nothing)))
-      , testCase "markovNotStochastic2"
-          (assertException (\(ErrorCall err) -> "The probabilities" `isPrefixOf` err)
-            (sample (generateCommands (sm markovNotStochastic2) Nothing)))
-      , testCase "markovNotStochastic3"
-          (assertException (\(ErrorCall err) -> "The probabilities" `isPrefixOf` err)
-            (sample (generateCommands (sm markovNotStochastic3) Nothing)))
-      ]
+  -- , testGroup "ProcessRegistry"
+  --     [ QCSM.testProperty "sequential" prop_processRegistry markovGood
+  --     , testCase "markovDeadlock"
+  --         (assertException (\(ErrorCall err) -> "\nA deadlock" `isPrefixOf` err)
+  --           (sample (generateCommands (sm markovDeadlock) Nothing)))
+  --     , testCase "markovNotStochastic1"
+  --         (assertException (\(ErrorCall err) -> "The probabilities" `isPrefixOf` err)
+  --           (sample (generateCommands (sm markovNotStochastic1) Nothing)))
+  --     , testCase "markovNotStochastic2"
+  --         (assertException (\(ErrorCall err) -> "The probabilities" `isPrefixOf` err)
+  --           (sample (generateCommands (sm markovNotStochastic2) Nothing)))
+  --     , testCase "markovNotStochastic3"
+  --         (assertException (\(ErrorCall err) -> "The probabilities" `isPrefixOf` err)
+  --           (sample (generateCommands (sm markovNotStochastic3) Nothing)))
+  --     ]
   ]
   where
     webServer docker bug port test prop
